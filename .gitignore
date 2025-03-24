@@ -1,5 +1,8 @@
 __pycache__
 keys
+data
+log_indy
+**/lib_indy/**/*.json
 *~
 *__pycache__
 */*lib_indy
