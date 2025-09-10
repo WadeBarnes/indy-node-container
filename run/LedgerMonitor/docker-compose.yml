@@ -1,7 +1,7 @@
 services:
-  bcovrinweb-node:
+  ledgermonitor:
     image: ${IMAGE}
-    container_name: ${INDY_NODE_NAME}-${NODE_CONTAINER_NAME}
+    container_name: ${INDY_NODE_NAME}
     command: bash -c 'sleep 10 && ./scripts/start_webserver.sh'
     ports:
       - ${WEB_SERVER_HOST_PORT:-9000}:8000
