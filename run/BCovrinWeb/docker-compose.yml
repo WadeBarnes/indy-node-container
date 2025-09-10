@@ -1,0 +1,46 @@
+services:
+  bcovrinweb-node:
+    image: ${IMAGE}
+    container_name: ${INDY_NODE_NAME}-${NODE_CONTAINER_NAME}
+    command: bash -c 'sleep 10 && ./scripts/start_webserver.sh'
+    ports:
+      - ${WEB_SERVER_HOST_PORT:-9000}:8000
+    volumes:
+      - ./lib_indy:/var/lib/indy
+    environment:
+      # ===========================================
+      # Define the following variables in .node.env
+      # -------------------------------------------
+      # - IP
+      # - IPS
+      # - DOCKERHOST
+      # - LEDGER_SEED
+      # ===========================================
+      - LOG_LEVEL=${LOG_LEVEL}
+      - RUST_LOG=${RUST_LOG}
+      - GENESIS_URL=${GENESIS_URL}
+      - GENESIS_FILE=${GENESIS_FILE}
+      - LEDGER_CACHE_PATH=${LEDGER_CACHE_PATH}
+      - MAX_FETCH=${MAX_FETCH:-50000}
+      - RESYNC_TIME=${RESYNC_TIME:-120}
+      - POOL_CONNECTION_ATTEMPTS=${POOL_CONNECTION_ATTEMPTS:-5}
+      - POOL_CONNECTION_DELAY=${POOL_CONNECTION_DELAY:-10}
+      - REGISTER_NEW_DIDS=${REGISTER_NEW_DIDS:-True}
+      - ENABLE_LEDGER_CACHE=${ENABLE_LEDGER_CACHE:-True}
+      - ENABLE_BROWSER_ROUTES=${ENABLE_BROWSER_ROUTES:-True}
+      - DISPLAY_LEDGER_STATE=${DISPLAY_LEDGER_STATE:-True}
+      - LEDGER_INSTANCE_NAME=${LEDGER_INSTANCE_NAME:-localhost}
+      - LEDGER_DESCRIPTION=${LEDGER_DESCRIPTION}
+      - WEB_ANALYTICS_SCRIPT=${WEB_ANALYTICS_SCRIPT}
+      - INFO_SITE_TEXT=${INFO_SITE_TEXT}
+      - INFO_SITE_URL=${INFO_SITE_URL}
+      - INDY_SCAN_URL=${INDY_SCAN_URL}
+      - INDY_SCAN_TEXT=${INDY_SCAN_TEXT}
+    logging:
+        driver: "json-file"
+        options:
+          max-file: "5"
+          max-size: "100m"
+    env_file:
+      - .node.env
+    restart: always

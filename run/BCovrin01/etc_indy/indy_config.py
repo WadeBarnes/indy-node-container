@@ -1,8 +1,18 @@
+import os
+import logging
+logLevel = getattr(logging, os.getenv("LOG_LEVEL", "INFO").upper())
+
 # Current network
-NETWORK_NAME = "ssi4de"
+NETWORK_NAME = os.getenv("INDY_NETWORK_NAME", "live")
+
+# Disable stdout logging
+enableStdOutLogging = False
 
 # Directory to store ledger.
 LEDGER_DIR = '/var/lib/indy'
+
+# Directory to store logs. You might want to mount this in order to access the log files from outside the container.
+LOG_DIR = '/var/log/indy'
 
 # Directory to store keys.
 KEYS_DIR = '/var/lib/indy'
@@ -19,17 +29,10 @@ PLUGINS_DIR = '/var/lib/indy/plugins'
 # Directory to store node info.
 NODE_INFO_DIR = '/var/lib/indy'
 
+ENABLED_PLUGINS = []
+
 # For running indy >= 1.13 in a legacy network (i.e. including revocation transactions written by indy nodes < 1.13)
-REV_STRATEGY_USE_COMPAT_ORDERING=True
+REV_STRATEGY_USE_COMPAT_ORDERING = True
 
 MAX_CONNECTED_CLIENTS_NUM=2200
-
-## Logging
-# 0 means everything
-logLevel = 20
-
-# Enable/Disable stdout logging
-enableStdOutLogging = True
-
-# Directory to store logs. You might want to mount this in order to access the log files from outside the container.
-LOG_DIR = '/var/log/indy'
+controlServiceHost= os.getenv("CONTROLLER_CONTAINER_NAME", "node-controller")
