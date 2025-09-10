@@ -3,4 +3,4 @@ include:
   - ./BCovrin02/docker-compose.yml
   - ./BCovrin03/docker-compose.yml
   - ./BCovrin04/docker-compose.yml
-  - ./BCovrinWeb/docker-compose.yml
+  - ./LedgerMonitor/docker-compose.yml
