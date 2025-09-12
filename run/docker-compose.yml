@@ -4,3 +4,12 @@ include:
   - ./BCovrin03/docker-compose.yml
   - ./BCovrin04/docker-compose.yml
   - ./LedgerMonitor/docker-compose.yml
+
+networks:
+  nodes:
+    name: ${NODE_NETWORK}
+    driver: bridge
+
+  proxy:
+    name: ${PROXY_NETWORK}
+    external: true

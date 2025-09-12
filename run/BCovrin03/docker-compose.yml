@@ -2,6 +2,8 @@ services:
   bcovrin03-node:
     image: ${IMAGE}
     container_name: ${INDY_NODE_NAME}-${NODE_CONTAINER_NAME}
+    networks:
+       - ${NODE_NETWORK}
     ports:
       - "${INDY_NODE_PORT}:${INDY_NODE_PORT}"
       - "${INDY_CLIENT_PORT}:${INDY_CLIENT_PORT}"
@@ -30,6 +32,8 @@ services:
     image: ${IMAGE_NAME_CONTROLLER}
     init: true
     container_name: ${INDY_NODE_NAME}-${CONTROLLER_CONTAINER_NAME}
+    networks:
+       - ${NODE_NETWORK}
     environment:
       - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
       - NODE_CONTAINER=${INDY_NODE_NAME}-${NODE_CONTAINER_NAME}

@@ -3,6 +3,8 @@ services:
     image: ${IMAGE}
     container_name: ${INDY_NODE_NAME}
     command: bash -c 'sleep 10 && ./scripts/start_webserver.sh'
+    networks:
+      - ${PROXY_NETWORK}
     ports:
       - ${WEB_SERVER_HOST_PORT:-9000}:8000
     volumes:
@@ -44,3 +46,9 @@ services:
     env_file:
       - .node.env
     restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.bcovrin.ledgermonitor.rule=Host(`new.bcovrin.vonx.io`)
+      - traefik.http.routers.bcovrin.ledgermonitor.entrypoints=websecure
+      - traefik.http.routers.bcovrin.ledgermonitor.tls.certresolver=resolver
+      - traefik.http.services.bcovrin.ledgermonitor.loadbalancer.server.port=${WEB_SERVER_HOST_PORT:-9000}
