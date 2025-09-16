@@ -48,7 +48,7 @@ services:
     restart: always
     labels:
       - traefik.enable=true
-      - traefik.http.routers.ledgermonitor.rule=Host(`test.bcovrin.vonx.io`)
+      - traefik.http.routers.ledgermonitor.rule=Host(`test.bcovrin.vonx.io`) || Host(`prod.bcovrin.vonx.io`) || Host(`dev.bcovrin.vonx.io`)
       - traefik.http.routers.ledgermonitor.entrypoints=websecure
       - traefik.http.routers.ledgermonitor.tls.certresolver=resolver
       - traefik.http.services.ledgermonitor.loadbalancer.server.port=${WEB_SERVER_HOST_PORT:-9000}
