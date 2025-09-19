@@ -52,3 +52,5 @@ services:
       - traefik.http.routers.ledgermonitor.entrypoints=websecure
       - traefik.http.routers.ledgermonitor.tls.certresolver=resolver
       - traefik.http.services.ledgermonitor.loadbalancer.server.port=${WEB_SERVER_HOST_PORT:-9000}
+      - traefik.http.routers.ledgermonitor.middlewares=strip-server-header@docker
+      - traefik.http.middlewares.strip-server-header.headers.customresponseheaders.Server=
