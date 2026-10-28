@@ -1,6 +1,7 @@
 services:
   bcovrin04-node:
     image: ${IMAGE}
+    init: true
     container_name: ${INDY_NODE_NAME}-${NODE_CONTAINER_NAME}
     networks:
       - ${NODE_NETWORK}
